@@ -74,7 +74,7 @@
 
     <!-- SECTION 2: Photos Drift (Dense, éphémère et rapide) -->
     <!-- Commence un peu plus tôt (180vh) puisque Wankel disparaît plus vite -->
-    <section id="drift-photos" class="relative w-full h-[200vh] mt-[180vh] bg-transparent z-20 pointer-events-none">
+    <section id="drift-photos" class="relative w-full h-[150vh] mt-[180vh] bg-transparent z-20 pointer-events-none">
         <!-- D1: Gauche -->
         <img src="assets/D1.webp" alt="Drift 1" class="drift-img absolute top-[5vh] left-[2%] w-[55vw] object-cover opacity-0" />
         <!-- D2: Droite -->
@@ -82,32 +82,178 @@
         <!-- D3: Gauche (au lieu du milieu géant) -->
         <img src="assets/D3.jpg" alt="Drift 3" class="drift-img absolute top-[75vh] left-[8%] w-[58vw] object-cover z-30 opacity-0" />
         <!-- D4: Droite (au lieu de gauche) -->
-        <img src="assets/D4.jpg" alt="Drift 4" class="drift-img absolute top-[120vh] right-[6%] w-[53vw] object-cover opacity-0" />
-        <!-- D5: Gauche (au lieu de droite) -->
-        <img src="assets/D5.jpg" alt="Drift 5" class="drift-img absolute top-[155vh] left-[5%] w-[50vw] object-cover opacity-0" />
+        <img src="assets/D4.jpg" alt="Drift 4" class="drift-img absolute top-[110vh] right-[6%] w-[53vw] object-cover opacity-0" />
     </section>
 
     <!-- SECTION 3: Moteur (Modèle 3D) -->
-    <section id="model-section" class="relative w-full h-screen flex items-center justify-center bg-transparent z-10">
+    <section id="model-section" class="relative w-full h-screen flex flex-col md:flex-row items-center justify-center bg-transparent z-10 gap-x-2 md:gap-x-4">
         
-        <!-- Placeholder 3D (À remplacer par <model-viewer> demain) -->
-        <div id="model-placeholder" class="w-[600px] h-[600px] flex items-center justify-center text-zinc-500 cursor-pointer relative group bg-transparent"
-            data-hotspot-id="rotor">
+        <!-- Bouton Info (Gauche) -->
+        <div class="z-20 flex flex-col items-center justify-center mb-6 md:mb-0 w-[80vw] md:w-[200px]">
+            <button id="btn-comprendre" class="relative group outline-none px-6 py-4 border border-japan bg-dark/80 text-light hover:bg-japan hover:text-white transition-all uppercase tracking-widest text-xs font-bold text-center shadow-[0_0_15px_rgba(200,20,20,0.5)]">
+                Comprendre le moteur
+            </button>
+        </div>
+
+        <!-- Le vrai Modèle 3D -->
+        <model-viewer 
+            id="wankel-model"
+            src="assets/wankel.glb" 
+            camera-controls 
+            camera-orbit="90deg 85deg auto"
+            shadow-intensity="1"            
+            interaction-prompt="none"            
+            class="w-[90vw] h-[70vh] md:w-[900px] md:h-[700px] flex-shrink-0"
+            style="background-color: transparent;"
+            autoplay
+            animation-crossfade-duration="0"
+        >
+            <!-- Hotspot Rotor -->
+            <button slot="hotspot-rotor" class="hotspot group relative" data-id="rotor" data-position="-0.0002 0.4940 0.6104" data-normal="1.0000 0.0000 -0.0000" data-visibility-attribute="visible">
+                <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-japan group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(200,20,20,0.8)]"></div>
+                
+                <!-- Tooltip Hover (Apparaît au-dessus) -->
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[260px] bg-dark/95 border border-zinc-700 p-4 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
+                    <h3 class="text-japan font-bold uppercase tracking-widest text-xs mb-2">Le Rotor (Piston)</h3>
+                    <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">De forme triangulaire (triangle de Reuleaux), il tourne de manière excentrique, remplaçant la fonction du piston traditionnel en créant 3 chambres dont le volume varie continuellement.</p>
+                </div>
+            </button>
             
-            <div class="text-center">
-                <p class="text-xl mb-4">Modèle 3D ICI</p>
-                <p class="text-sm opacity-50 max-w-xs mx-auto">
-                    Demain,je remplace ce div par :<br/>
-                    <code class="text-japan font-sans font-bold bg-dark p-2 mt-2 block text-xs">&lt;model-viewer src="assets/moteur.glb" animation-name="X" camera-controls style="background-color: transparent; --poster-color: transparent;"&gt;...&lt;/model-viewer&gt;</code>
-                </p>
-                <p class="text-japan mt-8 animate-pulse text-sm">cliquez ici pour tester le panel</p>
+            <!-- Hotspot Joints (Apex Seals) -->
+            <button slot="hotspot-apex" class="hotspot group relative" data-id="apex-seals" data-position="0.0000 0.6405 -1.0736" data-normal="1.0000 0.0000 0.0000" data-visibility-attribute="visible">
+                <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-japan group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(200,20,20,0.8)]"></div>
+                
+                <!-- Tooltip Hover (Apparaît au-dessus) -->
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[260px] bg-dark/95 border border-zinc-700 p-4 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
+                    <h3 class="text-japan font-bold uppercase tracking-widest text-xs mb-2">Joints de sommet</h3>
+                    <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">La plus grande faiblesse des moteurs Wankel. Ces joints s’usent rapidement à cause du frottement contre les parois, des températures et de la compression élevées et/ou d'un manque de lubrification, entraînant une perte de compression, de la fumée et une baisse de puissance.</p>
+                </div>
+            </button>
+
+            <!-- Cycle 1 : Admission -->
+            <button slot="hotspot-admission" class="hotspot group relative" data-id="admission" data-position="-0.0000 1.0377 1.1061" data-normal="1.0000 0.0000 -0.0000" data-visibility-attribute="visible">
+                <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-yellow-400 group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(250,204,21,0.8)]"></div>
+                
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[220px] bg-dark/95 border border-zinc-700 p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
+                    <h3 class="text-yellow-400 font-bold uppercase tracking-widest text-xs mb-1">1. Admission</h3>
+                    <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">Entrée du mélange d'air et de carburant dans la chambre.</p>
+                </div>
+            </button>
+
+            <!-- Cycle 2 : Compression -->
+            <button slot="hotspot-compression" class="hotspot group relative" data-id="compression" data-position="-0.3281 1.3054 -0.8022" data-normal="0.0000 -0.6607 0.7506" data-visibility-attribute="visible">
+                <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-yellow-400 group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(250,204,21,0.8)]"></div>
+                
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[220px] bg-dark/95 border border-zinc-700 p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
+                    <h3 class="text-yellow-400 font-bold uppercase tracking-widest text-xs mb-1">2. Compression</h3>
+                    <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">Le rotor tourne et compresse fortement le mélange.</p>
+                </div>
+            </button>
+
+            <!-- Cycle 3 : Explosion -->
+            <button slot="hotspot-explosion" class="hotspot group relative" data-id="explosion" data-position="-0.5895 -0.6947 -0.9804" data-normal="0.0000 0.4486 0.8937" data-visibility-attribute="visible">
+                <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-yellow-400 group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(250,204,21,0.8)]"></div>
+                
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[220px] bg-dark/95 border border-zinc-700 p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
+                    <h3 class="text-yellow-400 font-bold uppercase tracking-widest text-xs mb-1">3. Explosion</h3>
+                    <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">Allumage par les bougies, l'explosion crée la force motrice.</p>
+                </div>
+            </button>
+
+            <!-- Cycle 4 : Echappement -->
+            <button slot="hotspot-echappement" class="hotspot group relative" data-id="echappement" data-position="0.0000 -0.5561 1.0849" data-normal="1.0000 0.0000 0.0000" data-visibility-attribute="visible">
+                <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-yellow-400 group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(250,204,21,0.8)]"></div>
+                
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[220px] bg-dark/95 border border-zinc-700 p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
+                    <h3 class="text-yellow-400 font-bold uppercase tracking-widest text-xs mb-1">4. Échappement</h3>
+                    <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">Expulsion des gaz brûlés hors de la chambre.</p>
+                </div>
+            </button>
+
+            <!-- Stator -->
+            <button slot="hotspot-stator" class="hotspot group relative" data-id="stator" data-position="-0.0000 1.7623 -0.0006" data-normal="1.0000 0.0000 0.0000" data-visibility-attribute="visible">
+                <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-japan group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(200,20,20,0.8)]"></div>
+                
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[220px] bg-dark/95 border border-zinc-700 p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
+                    <h3 class="text-light font-bold uppercase tracking-widest text-xs mb-1">Le Stator</h3>
+                    <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">Le carter ovale (trochoïde) abritant le rotor.</p>
+                </div>
+            </button>
+
+            <!-- Arbre Excentrique -->
+            <button slot="hotspot-arbre" class="hotspot group relative" data-id="arbre" data-position="1.5816 0.1716 -0.0172" data-normal="1.0000 0.0000 0.0000" data-visibility-attribute="visible">
+                <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-japan group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(200,20,20,0.8)]"></div>
+                
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[220px] bg-dark/95 border border-zinc-700 p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
+                    <h3 class="text-light font-bold uppercase tracking-widest text-xs mb-1">L'Arbre Excentrique</h3>
+                    <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">L'équivalent du vilebrequin, transforme le mouvement rotatif excentrique.</p>
+                </div>
+            </button>
+
+            <!-- Les Bougies -->
+            <button slot="hotspot-bougies" class="hotspot group relative" data-id="bougie" data-position="-0.4035 0.5635 -1.7499" data-normal="0.9635 -0.0949 0.2505" data-visibility-attribute="visible">
+                <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-japan group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(200,20,20,0.8)]"></div>
+                
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[220px] bg-dark/95 border border-zinc-700 p-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
+                    <h3 class="text-light font-bold uppercase tracking-widest text-xs mb-1">Les Bougies</h3>
+                    <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">Déclenchent l'explosion pour créer la force motrice.</p>
+                </div>
+            </button>
+
+        </model-viewer>
+
+        <!-- Commandes du Modèle (Droite) -->
+        <div class="mt-8 md:mt-0 flex flex-col justify-center items-center gap-y-10 z-20 select-none">
+            
+            <!-- Compteur RPM Fictif -->
+            <div class="font-mono text-japan text-2xl font-bold flex flex-col items-center">
+                <span id="rpm-display">0</span>
+                <span class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">RPM</span>
             </div>
+
+            <!-- Pédales container -->
+            <div class="flex flex-row items-end justify-center w-full gap-x-8">
+                
+                <!-- Pédale de Frein (Maintenant à gauche) -->
+                <button id="pedal-brake" class="relative group outline-none active:scale-95 transition-transform duration-100">
+                    <div class="absolute -inset-2 bg-blue-500/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="relative bg-zinc-800 border-2 border-zinc-600 rounded-lg p-5 w-24 h-24 flex items-center justify-center group-active:border-blue-500 group-active:bg-dark shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+                        <div class="w-3/4 h-2 flex justify-between">
+                            <div class="w-2 h-full bg-zinc-500 rounded"></div>
+                            <div class="w-2 h-full bg-zinc-500 rounded"></div>
+                            <div class="w-2 h-full bg-zinc-500 rounded"></div>
+                        </div>
+                    </div>
+                    <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] uppercase text-zinc-400 font-bold tracking-widest">Frein</span>
+                </button>
+
+                <!-- Pédale d'Accélérateur (Maintenant à droite) -->
+                <button id="pedal-accel" class="relative group outline-none active:scale-95 transition-transform duration-100">
+                    <div class="absolute -inset-2 bg-japan/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="relative bg-zinc-800 border-2 border-zinc-600 rounded-lg p-4 w-16 h-36 flex flex-col items-center justify-center gap-2 group-active:border-japan group-active:bg-dark shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+                        <div class="w-1 h-3/4 flex flex-col justify-between">
+                            <div class="w-full h-1 bg-zinc-500 rounded"></div>
+                            <div class="w-full h-1 bg-zinc-500 rounded"></div>
+                            <div class="w-full h-1 bg-zinc-500 rounded"></div>
+                            <div class="w-full h-1 bg-zinc-500 rounded"></div>
+                        </div>
+                    </div>
+                    <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] uppercase text-zinc-400 font-bold tracking-widest">GAAAZ</span>
+                </button>
+
+            </div>
+
+            <!-- Bouton Réinitialiser -->
+            <button id="reset-model-btn" class="mt-4 text-[10px] uppercase font-bold tracking-widest text-zinc-400 hover:text-white transition-colors border border-zinc-700 px-4 py-2 rounded hover:border-japan hover:bg-japan/10 flex items-center gap-2">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                Réinitialiser le Wankel
+            </button>
         </div>
 
     </section>
 
     <!-- Side Panel (Explications) -->
-    <aside id="side-panel" class="fixed top-0 right-0 h-full w-[400px] max-w-[90vw] bg-dark border-l border-japan/30 transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] z-50 flex flex-col p-8 shadow-2xl overflow-y-auto">
+    <aside id="side-panel" class="fixed top-0 right-0 h-full w-[62.5vw] max-w-[95vw] sm:max-w-[85vw] bg-dark/95 backdrop-blur-md border-l border-japan/30 transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] z-50 flex flex-col p-8 shadow-2xl overflow-y-auto">
         
         <!-- Bouton Fermer -->
         <button id="close-panel" class="absolute top-6 right-6 text-zinc-500 hover:text-japan transition-colors p-2">
@@ -133,6 +279,9 @@
 
     <!-- Overlay sombre quand le panel est ouvert (optionnel, pour l'immersion) -->
     <div id="panel-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-500"></div>
+
+    <!-- Script Model-Viewer (Google) -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
     <script src="script.js"></script>
 </body>
