@@ -72,16 +72,15 @@
         </div>
     </section>
 
-    <!-- SECTION 2: Photos Drift (Dense, éphémère et rapide) -->
-    <!-- Commence un peu plus tôt (180vh) puisque Wankel disparaît plus vite -->
+    <!-- SECTION 2: Drift Photos Section -->
     <section id="drift-photos" class="relative w-full h-[150vh] mt-[180vh] bg-transparent z-20 pointer-events-none">
-        <!-- D1: Gauche -->
+        <!-- D1: Left -->
         <img src="assets/D1.webp" alt="Drift 1" class="drift-img absolute top-[5vh] left-[2%] w-[55vw] object-cover opacity-0" />
-        <!-- D2: Droite -->
+        <!-- D2: Right -->
         <img src="assets/D2.jpg" alt="Drift 2" class="drift-img absolute top-[35vh] right-[4%] w-[50vw] object-cover opacity-0" />
-        <!-- D3: Gauche (au lieu du milieu géant) -->
+        <!-- D3: Left -->
         <img src="assets/D3.jpg" alt="Drift 3" class="drift-img absolute top-[75vh] left-[8%] w-[58vw] object-cover z-30 opacity-0" />
-        <!-- D4: Droite (au lieu de gauche) -->
+        <!-- D4: Right -->
         <img src="assets/D4.jpg" alt="Drift 4" class="drift-img absolute top-[110vh] right-[6%] w-[53vw] object-cover opacity-0" />
     </section>
 
@@ -90,7 +89,7 @@
         
         <!-- Bouton Info (Gauche) -->
         <div class="z-20 flex flex-col items-center justify-center mb-6 md:mb-0 w-[80vw] md:w-[200px]">
-            <button id="btn-comprendre" class="relative group outline-none px-6 py-4 border border-japan bg-dark/80 text-light hover:bg-japan hover:text-white transition-all uppercase tracking-widest text-xs font-bold text-center shadow-[0_0_15px_rgba(200,20,20,0.5)]">
+            <button id="btn-comprendre" class="group relative outline-none px-6 py-4 border-b border-zinc-700 bg-transparent text-zinc-400 hover:text-light transition-all uppercase tracking-widest text-[11px] font-bold text-center hover:border-light">
                 Comprendre le moteur
             </button>
         </div>
@@ -98,7 +97,6 @@
         <!-- Le vrai Modèle 3D -->
         <model-viewer 
             id="wankel-model"
-            src="assets/wankel.glb" 
             camera-controls 
             camera-orbit="90deg 85deg auto"
             shadow-intensity="1"            
@@ -112,7 +110,6 @@
             <button slot="hotspot-rotor" class="hotspot group relative" data-id="rotor" data-position="-0.0002 0.4940 0.6104" data-normal="1.0000 0.0000 -0.0000" data-visibility-attribute="visible">
                 <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-japan group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(200,20,20,0.8)]"></div>
                 
-                <!-- Tooltip Hover (Apparaît au-dessus) -->
                 <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[260px] bg-dark/95 border border-zinc-700 p-4 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
                     <h3 class="text-japan font-bold uppercase tracking-widest text-xs mb-2">Le Rotor (Piston)</h3>
                     <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">De forme triangulaire (triangle de Reuleaux), il tourne de manière excentrique, remplaçant la fonction du piston traditionnel en créant 3 chambres dont le volume varie continuellement.</p>
@@ -123,7 +120,6 @@
             <button slot="hotspot-apex" class="hotspot group relative" data-id="apex-seals" data-position="0.0000 0.6405 -1.0736" data-normal="1.0000 0.0000 0.0000" data-visibility-attribute="visible">
                 <div class="hotspot-annotation transition-all duration-300 w-4 h-4 rounded-full bg-japan group-hover:scale-150 border-2 border-dark cursor-pointer shadow-[0_0_15px_rgba(200,20,20,0.8)]"></div>
                 
-                <!-- Tooltip Hover (Apparaît au-dessus) -->
                 <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[260px] bg-dark/95 border border-zinc-700 p-4 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 scale-95 group-hover:scale-100 shadow-2xl rounded text-left z-50">
                     <h3 class="text-japan font-bold uppercase tracking-widest text-xs mb-2">Joints de sommet</h3>
                     <p class="text-light text-[11px] font-japanese leading-relaxed opacity-90">La plus grande faiblesse des moteurs Wankel. Ces joints s’usent rapidement à cause du frottement contre les parois, des températures et de la compression élevées et/ou d'un manque de lubrification, entraînant une perte de compression, de la fumée et une baisse de puissance.</p>
@@ -202,19 +198,19 @@
 
         </model-viewer>
 
-        <!-- Commandes du Modèle (Droite) -->
+        <!-- Controls -->
         <div class="mt-8 md:mt-0 flex flex-col justify-center items-center gap-y-10 z-20 select-none">
             
-            <!-- Compteur RPM Fictif -->
+            <!-- RPM Display -->
             <div class="font-mono text-japan text-2xl font-bold flex flex-col items-center">
                 <span id="rpm-display">0</span>
                 <span class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">RPM</span>
             </div>
 
-            <!-- Pédales container -->
+            <!-- Pedals Container -->
             <div class="flex flex-row items-end justify-center w-full gap-x-8">
                 
-                <!-- Pédale de Frein (Maintenant à gauche) -->
+                <!-- Brake Pedal -->
                 <button id="pedal-brake" class="relative group outline-none active:scale-95 transition-transform duration-100">
                     <div class="absolute -inset-2 bg-blue-500/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition duration-300"></div>
                     <div class="relative bg-zinc-800 border-2 border-zinc-600 rounded-lg p-5 w-24 h-24 flex items-center justify-center group-active:border-blue-500 group-active:bg-dark shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
@@ -227,7 +223,7 @@
                     <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] uppercase text-zinc-400 font-bold tracking-widest">Frein</span>
                 </button>
 
-                <!-- Pédale d'Accélérateur (Maintenant à droite) -->
+                <!-- Accelerator Pedal -->
                 <button id="pedal-accel" class="relative group outline-none active:scale-95 transition-transform duration-100">
                     <div class="absolute -inset-2 bg-japan/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition duration-300"></div>
                     <div class="relative bg-zinc-800 border-2 border-zinc-600 rounded-lg p-4 w-16 h-36 flex flex-col items-center justify-center gap-2 group-active:border-japan group-active:bg-dark shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
@@ -243,7 +239,7 @@
 
             </div>
 
-            <!-- Bouton Réinitialiser -->
+            <!-- Reset Button -->
             <button id="reset-model-btn" class="mt-4 text-[10px] uppercase font-bold tracking-widest text-zinc-400 hover:text-white transition-colors border border-zinc-700 px-4 py-2 rounded hover:border-japan hover:bg-japan/10 flex items-center gap-2">
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                 Réinitialiser le Wankel
@@ -252,36 +248,39 @@
 
     </section>
 
-    <!-- Side Panel (Explications) -->
+    <!-- Explanation Side Panel -->
     <aside id="side-panel" class="fixed top-0 right-0 h-full w-[62.5vw] max-w-[95vw] sm:max-w-[85vw] bg-dark/95 backdrop-blur-md border-l border-japan/30 transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] z-50 flex flex-col p-8 shadow-2xl overflow-y-auto">
         
-        <!-- Bouton Fermer -->
+        <!-- Close Button -->
         <button id="close-panel" class="absolute top-6 right-6 text-zinc-500 hover:text-japan transition-colors p-2">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
 
-        <!-- Switch de langue FR/EN -->
+        <!-- Language Switch -->
         <div class="flex items-center space-x-2 text-xs font-sans tracking-widest text-zinc-400 mt-2 mb-10">
             <span id="lang-fr" class="cursor-pointer text-japan font-bold transition-colors hover:text-light py-1 px-2">FR</span>
             <div class="w-px h-3 bg-zinc-700"></div>
             <span id="lang-en" class="cursor-pointer transition-colors hover:text-light py-1 px-2">EN</span>
         </div>
 
-        <!-- Contenu dynamique -->
+        <!-- Dynamic Content -->
         <h2 id="panel-title" class="text-3xl font-bold mb-6 text-light tracking-wide border-b border-zinc-800 pb-4">
-            Titre de la pièce
+            Component Title
         </h2>
         
         <div id="panel-text" class="text-zinc-300 leading-relaxed text-sm md:text-base opacity-90 font-japanese text-justify">
-            Ceci est un texte de remplacement d'environ 100 mots expliquant le fonctionnement de la pièce sélectionnée. Ce texte racontera pourquoi le moteur rotatif est complexe, élégant, et comment son ingénierie unique en a fait une légende de l'automobile au Japon...
+            Component Description
         </div>
     </aside>
 
-    <!-- Overlay sombre quand le panel est ouvert (optionnel, pour l'immersion) -->
+    <!-- Dark Overlay -->
     <div id="panel-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-500"></div>
 
-    <!-- Script Model-Viewer (Google) -->
+    <!-- Google Model-Viewer Script -->
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+    <!-- Hack pour contourner la sécurité des navigateurs (Modèle en local) -->
+    <script src="assets/wankel_base64.js"></script>
 
     <script src="script.js"></script>
 </body>

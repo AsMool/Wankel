@@ -46,31 +46,31 @@ heroTl.to("#scroll-indicator", { opacity: 0, duration: 0.1 }, 0)
     duration: 0.4
 }, 0.45); 
 
-// ====== 2. Animation Photos Drift (Progressif & Artistique) ======
+// ====== 2. Drift Photos Animation ======
 const images = gsap.utils.toArray(".drift-img");
 
 images.forEach((img, i) => {
     const tl = gsap.timeline({
         scrollTrigger: {
             trigger: img,
-            start: "top 85%",  // Commence un petit peu plus tard
-            end: "bottom 45%", // Fini très vite : dès que l'image est à un peu moins de la moitié du haut !
+            start: "top 85%",
+            end: "bottom 45%",
             scrub: 1,
         }
     });
 
-    // 1: Fade IN ultra rapide comme un flash
+    // 1: Quick Fade IN
     tl.fromTo(img, 
         { opacity: 0, y: 40 },
         { opacity: 1, y: 0, duration: 0.15, ease: "power1.out" }
     )
-    // 2: Plateau très court, c'est éphémère !
+    // 2: Short hold
     .to(img, { opacity: 1, y: 0, duration: 0.25 })
-    // 3: Fade OUT assez rapide et long pour faire une transition plus fuyante
+    // 3: Gentle Fade OUT
     .to(img, { opacity: 0, y: 0, duration: 0.6, ease: "power1.inOut" });
 });
 
-// ====== 3. Animation Apparition Modèle 3D ======
+// ====== 3. 3D Model Appearance ======
 gsap.fromTo("#model-section", 
     { opacity: 0 }, 
     {
@@ -94,8 +94,8 @@ const hotspotsData = {
             en: "Understanding the Wankel Engine"
         },
         texte: {
-            fr: "Le moteur rotatif Wankel, du nom de son inventeur Felix Wankel, est une véritable merveille d'ingénierie mécanique qui se distingue radicalement des moteurs à pistons traditionnels. Au lieu d'utiliser des cylindres et des pistons qui effectuent des mouvements de va-et-vient, le Wankel emploie un rotor triangulaire (celui de Reuleaux) qui tourne de manière excentrique à l'intérieur d'un carter en forme de trochoïde (le stator). \n\nCette géométrie fascinante permet de réaliser les quatre temps du cycle de combustion (admission, compression, explosion et échappement) de façon simultanée et continue, sans avoir besoin de soupapes ni de vilebrequin classique. À chaque révolution, trois explosions successives se produisent pour assurer une livraison de puissance extrêmement fluide et linéaire.\n\nL'absence de pièces en mouvement alternatif lourd confère au moteur Wankel une onctuosité rare en éliminant presque toutes les vibrations. Cela lui permet d'atteindre des régimes de rotation (RPM) affolants avec une aisance déconcertante. \n\nPopularisé dans le monde entier par Mazda, notamment via ses légendaires coupés sportifs RX-7 et RX-8, ce moteur au petit gabarit offre un centre de gravité très bas, idéal pour l'équilibre du châssis. Son rapport poids/puissance imbattable et sa sonorité mythique, souvent qualifiée de « braap braap », en ont fait l'icône absolue de la culture JDM et du drift sur circuit de montagne (les Touges japonais). \n\nToutefois, ces incroyables atouts viennent au prix d'un compromis de taille : les segments d'arrêt (apex seals) situés aux pointes du rotor s'usent prématurément. Ce problème inhérent à sa forme provoque souvent des baisses de compression, ce qui impose un entretien exigeant et régulier.",
-            en: "The Wankel rotary engine, named after its German inventor Felix Wankel, is a profound mechanical engineering marvel that drastically sets itself apart from traditional piston engines. Instead of using cylinders and pistons moving back and forth, the Wankel employs a triangular rotor (a Reuleaux triangle) that spins eccentrically inside an oval, figure-eight-shaped housing known as the stator. \n\nThis fascinating geometry allows the four stages of combustion (intake, compression, power, and exhaust) to occur simultaneously and continuously without the need for complex valves or a typical crankshaft. In a single revolution, three power strokes are completed, guaranteeing an incredibly smooth and linear power delivery.\n\nThe complete absence of heavy reciprocating parts gives the Wankel engine a rare smoothness, practically eliminating all vibrations. This characteristic allows it to reach extremely high revolutions per minute (RPM) effortlessly without feeling as though the engine is straining. \n\nBrought to the masses globally by Mazda, especially inside their legendary RX-7 and RX-8 sports cars, this incredibly compact engine package provides an ultra-low center of gravity, perfecting the chassis balance. Its unbeatable power-to-weight ratio and mythical exhaust note (universally described as 'brap brap') turned it into an absolute icon inside the JDM tuning culture and mountain drifting scene (the Japanese Touge). \n\nHowever, these incredible strengths come at a significant maintenance cost: the apex seals located at the tips of the rotors are prone to rapid wear due to friction and high heat. This inherent structural flaw often leads to a drop in compression, making it a very high-maintenance, demanding machine for enthusiasts."
+            fr: "Inventé par l’allemand Félix Wankel dans les années 1950, le moteur Wankel est un moteur à combustion interne qui fonctionne à la rotation d’un rotor triangulaire. Ce rotor tourne à l'intérieur d'une chambre à combustion et entraîne un arbre excentrique. Cette conception permet de transformer directement la pression des gaz en mouvement rotatif, ce qui élimine le besoin de pièces comme les bielles et le vilebrequin.\n\nLe moteur Wankel est compact, simple et léger, ce qui lui donne un excellent rapport poids/puissance. Sa rotation continue assure un fonctionnement fluide et réduit les vibrations. C'est pourquoi on le retrouve souvent dans les véhicules sportifs et les avions légers, où l'espace est limité.\n\nCependant, le moteur Wankel a aussi des inconvénients. Il consomme généralement plus de carburant (+30% en moyenne) et les joints d'étanchéité du rotor (au trois sommets) peuvent s'user rapidement. Il nécessite un entretiens spécial (le liquide lubrifiant est injecté directement dans l’essence). De plus, il peut avoir du mal à respecter les normes environnementales d’emissions de CO2.\n\nMalgré ces limites, le moteur Wankel a marqué l'histoire de l'automobile. Le constructeur Mazda l'a utilisé dans des modèles célèbres comme la RX-7 et la RX-8, et a gagné les 24h du mans avec la Mazda 787B. Cela montre que cette technologie, même si elle est peu commune, peut offrir des avantages uniques dans les bonnes conditions.",
+            en: "Invented by the German Felix Wankel in the 1950s, the Wankel engine is an internal combustion engine that operates through the rotation of a triangular rotor. This rotor spins inside a combustion chamber and drives an eccentric shaft. This design allows the gas pressure to be directly transformed into rotary motion, eliminating the need for parts like connecting rods and a crankshaft.\n\nThe Wankel engine is compact, simple, and lightweight, giving it an excellent power-to-weight ratio. Its continuous rotation ensures smooth operation and reduces vibrations. This is why it is often found in sports cars and light aircraft, where space is limited.\n\nHowever, the Wankel engine also has disadvantages. It generally consumes more fuel (+30% on average) and the rotor seals (at the three apices) can wear out quickly. It requires special maintenance (lubricating fluid is injected directly into the fuel). Additionally, it can struggle to meet environmental CO2 emission standards.\n\nDespite these limitations, the Wankel engine has left its mark on automotive history. The manufacturer Mazda used it in famous models like the RX-7 and RX-8, and won the 24 Hours of Le Mans with the Mazda 787B. This shows that this technology, even if uncommon, can offer unique advantages under the right conditions."
         }
     },
     'apex-seals': {
@@ -242,25 +242,30 @@ if (modelViewer) {
         });
     };
 
-    // Au chargement, on met la vitesse à 0 (l'animation "tourne" mais à vitesse 0)
+    // Load initial speed
     modelViewer.addEventListener('load', () => {
         modelViewer.timeScale = 0;
         toggleHotspots(true);
+        if (rpmDisplay) rpmDisplay.innerText = "0";
     });
 
-    // Boucle très simple
+    // Simple loop
     setInterval(() => {
         if (isAccel) {
-            speed += 0.2;
+            speed += 0.3;
             if (speed > 15) speed = 15;
         } else if (isBrake) {
-            speed -= 0.4;
+            speed -= 0.6;
             if (speed < 0) speed = 0;
         }
 
-        // On met à jour Model Viewer SEULEMENT si nécessaire
-        if (modelViewer.timeScale !== speed) {
-            modelViewer.timeScale = speed;
+        // On accélère artificiellement l'animation 3D de 150% par rapport à sa valeur d'origine,
+        // pour une même "valeur" RPM affichée.
+        const animationSpeed = speed * 1.5;
+
+        // Update Model Viewer ONLY if needed
+        if (modelViewer.timeScale !== animationSpeed) {
+            modelViewer.timeScale = animationSpeed;
             if (rpmDisplay) rpmDisplay.innerText = Math.round(speed * 650);
 
             if (speed > 0.1) {
@@ -300,38 +305,30 @@ if (modelViewer) {
 }
 
 // =========================================================
-// OUTIL DE DÉBOGAGE POUR PLACER LES HOTSPOTS DANS LE NAVIGATEUR
+// Hotspot placement debug tool (Shift + Click)
 // =========================================================
 if (modelViewer) {
-    // Utilise SHIFT + CLIC GAUCHE pour contourner la main (OrbitControls)
     modelViewer.addEventListener('click', (event) => {
-        // Bloque l'action si la touche Majuscule (Shift) n'est pas enfoncée
         if (!event.shiftKey) return; 
 
-        // Obtenir la position 3D exact du clic sur le modèle !
         const hit = modelViewer.positionAndNormalFromPoint(event.clientX, event.clientY);
         
         if (hit != null) {
-            // Le clic a bien touché une surface du modèle 3D
             const pos = hit.position;
             const norm = hit.normal;
             
-            // Formatage de la chaîne de position pour la copier directement
             const newPositionString = `${pos.x.toFixed(4)} ${pos.y.toFixed(4)} ${pos.z.toFixed(4)}`;
             const newNormalString = `${norm.x.toFixed(4)} ${norm.y.toFixed(4)} ${norm.z.toFixed(4)}`;
             
-            // Affiche ça dans la console
-            console.log(`%c👉 NOUVELLES COORDONNÉES RÉCUPÉRÉES !`, `color: #00ff00; font-weight: bold; font-size: 14px;`);
-            console.log(`   data-position="${newPositionString}"`);
-            console.log(`   data-normal="${newNormalString}"`);
-        } else {
-            console.log("Clic dans le vide !");
+            console.log(`[Hotspot Coordinates]`);
+            console.log(`data-position="${newPositionString}"`);
+            console.log(`data-normal="${newNormalString}"`);
         }
     });
 }
 // =========================================================
 
-// 2. Connexion du Bouton Global d'explication
+// Global explanation button setup
 const btnComprendre = document.getElementById('btn-comprendre');
 if (btnComprendre) {
     btnComprendre.addEventListener('click', () => {
