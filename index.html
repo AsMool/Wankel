@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WANKEL - Projet Modélisation 3D</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0a0a0a',
+                        japan: '#C8102E', /* Rouge Japonais */
+                        light: '#f5f5f5'  /* Blanc cassé */
+                    },
+                    fontFamily: {
+                        japanese: ['"Noto Serif JP"', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP / ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Google Model Viewer -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+
+    <style>
+        /* Adoucit très fortement les bordures des images pour un effet "vapeur / souvenir éphémère" */
+        .drift-img {
+            -webkit-mask-image: 
+                radial-gradient(ellipse at center, black 30%, transparent 80%), 
+                linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%),
+                linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+            -webkit-mask-composite: source-in;
+            mask-image: 
+                radial-gradient(ellipse at center, black 30%, transparent 80%), 
+                linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%),
+                linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+            mask-composite: intersect;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light font-japanese overflow-x-hidden m-0 p-0 antialiased">
+    
+    <!-- SECTION 1: Hero (Carte Japon) -->
+    <section id="hero" class="relative w-full h-screen flex items-center justify-center overflow-hidden z-10 bg-transparent">
+        <img id="japan-map" src="assets/japonfinal.png" alt="Carte du Japon" class="absolute w-[40vw] max-w-2xl z-10 opacity-90" />
+        
+        <!-- Conteneur pour le Titre et le Sous-titre -->
+        <div class="absolute z-20 flex flex-col items-center justify-center w-full mix-blend-difference select-none pointer-events-none">
+            <h1 class="text-[10vw] font-bold tracking-[0.5em] text-light uppercase text-center ml-[0.25em]">
+                Wankel
+            </h1>
+            <p id="hero-subtitle" class="text-sm md:text-xl font-light tracking-[0.2em] text-light uppercase mt-2 opacity-0 text-center">
+                le moteur qui a redéfini la culture de drift au japon
+            </p>
+        </div>
+
+        <div id="scroll-indicator" class="absolute bottom-10 z-20 text-sm tracking-widest uppercase opacity-50 animate-bounce">
+            Scroll pour explorer
+        </div>
+    </section>
+
+    <!-- SECTION 2: Photos Drift (Dense, éphémère et rapide) -->
+    <!-- Commence un peu plus tôt (180vh) puisque Wankel disparaît plus vite -->
+    <section id="drift-photos" class="relative w-full h-[200vh] mt-[180vh] bg-transparent z-20 pointer-events-none">
+        <!-- D1: Gauche -->
+        <img src="assets/D1.webp" alt="Drift 1" class="drift-img absolute top-[5vh] left-[2%] w-[55vw] object-cover opacity-0" />
+        <!-- D2: Droite -->
+        <img src="assets/D2.jpg" alt="Drift 2" class="drift-img absolute top-[35vh] right-[4%] w-[50vw] object-cover opacity-0" />
+        <!-- D3: Gauche (au lieu du milieu géant) -->
+        <img src="assets/D3.jpg" alt="Drift 3" class="drift-img absolute top-[75vh] left-[8%] w-[58vw] object-cover z-30 opacity-0" />
+        <!-- D4: Droite (au lieu de gauche) -->
+        <img src="assets/D4.jpg" alt="Drift 4" class="drift-img absolute top-[120vh] right-[6%] w-[53vw] object-cover opacity-0" />
+        <!-- D5: Gauche (au lieu de droite) -->
+        <img src="assets/D5.jpg" alt="Drift 5" class="drift-img absolute top-[155vh] left-[5%] w-[50vw] object-cover opacity-0" />
+    </section>
+
+    <!-- SECTION 3: Moteur (Modèle 3D) -->
+    <section id="model-section" class="relative w-full h-screen flex items-center justify-center bg-transparent z-10">
+        
+        <!-- Placeholder 3D (À remplacer par <model-viewer> demain) -->
+        <div id="model-placeholder" class="w-[600px] h-[600px] flex items-center justify-center text-zinc-500 cursor-pointer relative group bg-transparent"
+            data-hotspot-id="rotor">
+            
+            <div class="text-center">
+                <p class="text-xl mb-4">Modèle 3D ICI</p>
+                <p class="text-sm opacity-50 max-w-xs mx-auto">
+                    Demain,je remplace ce div par :<br/>
+                    <code class="text-japan font-sans font-bold bg-dark p-2 mt-2 block text-xs">&lt;model-viewer src="assets/moteur.glb" animation-name="X" camera-controls style="background-color: transparent; --poster-color: transparent;"&gt;...&lt;/model-viewer&gt;</code>
+                </p>
+                <p class="text-japan mt-8 animate-pulse text-sm">cliquez ici pour tester le panel</p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Side Panel (Explications) -->
+    <aside id="side-panel" class="fixed top-0 right-0 h-full w-[400px] max-w-[90vw] bg-dark border-l border-japan/30 transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] z-50 flex flex-col p-8 shadow-2xl overflow-y-auto">
+        
+        <!-- Bouton Fermer -->
+        <button id="close-panel" class="absolute top-6 right-6 text-zinc-500 hover:text-japan transition-colors p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- Switch de langue FR/EN -->
+        <div class="flex items-center space-x-2 text-xs font-sans tracking-widest text-zinc-400 mt-2 mb-10">
+            <span id="lang-fr" class="cursor-pointer text-japan font-bold transition-colors hover:text-light py-1 px-2">FR</span>
+            <div class="w-px h-3 bg-zinc-700"></div>
+            <span id="lang-en" class="cursor-pointer transition-colors hover:text-light py-1 px-2">EN</span>
+        </div>
+
+        <!-- Contenu dynamique -->
+        <h2 id="panel-title" class="text-3xl font-bold mb-6 text-light tracking-wide border-b border-zinc-800 pb-4">
+            Titre de la pièce
+        </h2>
+        
+        <div id="panel-text" class="text-zinc-300 leading-relaxed text-sm md:text-base opacity-90 font-japanese text-justify">
+            Ceci est un texte de remplacement d'environ 100 mots expliquant le fonctionnement de la pièce sélectionnée. Ce texte racontera pourquoi le moteur rotatif est complexe, élégant, et comment son ingénierie unique en a fait une légende de l'automobile au Japon...
+        </div>
+    </aside>
+
+    <!-- Overlay sombre quand le panel est ouvert (optionnel, pour l'immersion) -->
+    <div id="panel-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-500"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
